@@ -1,1 +1,1 @@
-web: sh setup.sh && make docker/run
+web: sh setup.sh && streamlit run run.py
