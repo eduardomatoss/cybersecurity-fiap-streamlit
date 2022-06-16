@@ -1,6 +1,5 @@
 import streamlit as st
 
-
 from app.view.components import PAGES
 from app.cache.cache import load_widget_state
 
