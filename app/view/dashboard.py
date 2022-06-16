@@ -1,14 +1,16 @@
 import streamlit as st
 import pandas as pd
 
-from app.view.components.sidebar.sidebar import sidebar
-from app.service.delivery_api import getAllDeliveryMan, getAllBuyers
+from app.view.sidebar import sidebar
+from app.service.delivery_api import get_all_deliveryman, get_all_buyers
+
 
 def dashboard():
 
     st.header("Delivery Dashboard")
 
-    st.markdown(""" <style>
+    st.markdown(
+        """ <style>
                       @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@300&family=Roboto+Mono:wght@300&display=swap');
                       * {
                           font-family: 'Nunito', sans-serif;
@@ -81,7 +83,9 @@ def dashboard():
                           padding: 10px;
                           border-radius: 15px;
                       }
-                  </style>""", unsafe_allow_html=True)
+                  </style>""",
+        unsafe_allow_html=True,
+    )
 
     sidebar()
 
@@ -96,31 +100,31 @@ def dashboard():
     c1, c2 = st.columns((4, 2))
 
     with c1:
-      with st.container():
-        d = {"lat": [-23.5215024], "lon": [-46.7069997]}
-        df = pd.DataFrame(
-        data=d
-        )
-        st.map(df)
+        with st.container():
+            d = {"lat": [-23.5215024], "lon": [-46.7069997]}
+            df = pd.DataFrame(data=d)
+            st.map(df)
 
-    buyers = getAllBuyers()
+    buyers = get_all_buyers()
 
     with c2:
-      with st.container():
-        st.subheader('Últimos Clientes')
-        for buyer in buyers:
-          st.text(f"{buyer.get('name')}    CPF : {'{}.{}.{}-{}'.format(buyer.get('cpf')[:3], buyer.get('cpf')[3:6], buyer.get('cpf')[6:9], buyer.get('cpf')[9:])}")
+        with st.container():
+            st.subheader("Últimos Clientes")
+            for buyer in buyers:
+                st.text(
+                    f"{buyer.get('name')}    CPF : {'{}.{}.{}-{}'.format(buyer.get('cpf')[:3], buyer.get('cpf')[3:6], buyer.get('cpf')[6:9], buyer.get('cpf')[9:])}"
+                )
 
-    deliveryMens = getAllDeliveryMan()
+    deliverymens = get_all_deliveryman()
 
-    for mens in deliveryMens:
-      cols1, cols2, cols3 = st.columns((1, 4, 2))
-      
-      with cols1:
-        st.text(f"Funcionário : {mens.get('id')}")
+    for mens in deliverymens:
+        cols1, cols2, cols3 = st.columns((1, 4, 2))
 
-      with cols2:
-        st.text(f"Nome Completo : {mens.get('name')}")
-        
-      with cols3:
-        st.text(f"Veículo : {mens.get('vehicle')}")
+        with cols1:
+            st.text(f"Funcionário : {mens.get('id')}")
+
+        with cols2:
+            st.text(f"Nome Completo : {mens.get('name')}")
+
+        with cols3:
+            st.text(f"Veículo : {mens.get('vehicle')}")

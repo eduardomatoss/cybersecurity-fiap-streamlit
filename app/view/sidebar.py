@@ -1,8 +1,10 @@
 import streamlit as st
 
+
 def sidebar():
 
-    st.markdown(""" <style>
+    st.markdown(
+        """ <style>
                        .css-1siy2j7 {
                           background-color: #FFF;
                           background-attachment: fixed;
@@ -51,12 +53,13 @@ def sidebar():
                           color: #79AFFF;
                       }
                     </style>
-                """, unsafe_allow_html = True)
+                """,
+        unsafe_allow_html=True,
+    )
 
     with st.sidebar:
-      st.button("Dashboard", key="dashboard", on_click=None)
-      st.button("Solution One", key="sol_one", on_click=None)
-      st.button("Solution Two", key="sol_two", on_click=None)
-      st.button("Solution Tree", key="sol_tree", on_click=None)
-      st.button("Track Delivery", key="Track", on_click=None)
-
+        st.button("Dashboard", key="dashboard", on_click=None)
+        st.button("Solution One", key="sol_one", on_click=None)
+        st.button("Solution Two", key="sol_two", on_click=None)
+        st.button("Solution Tree", key="sol_tree", on_click=None)
+        st.button("Track Delivery", key="Track", on_click=None)
