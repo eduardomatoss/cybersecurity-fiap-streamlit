@@ -1,7 +1,9 @@
 import streamlit as st
 
+import app.view.components as components
+from app.cache.cache import persist
 
-def sidebar():
+def sidebar(): 
 
     st.markdown(
         """ <style>
@@ -57,9 +59,8 @@ def sidebar():
         unsafe_allow_html=True,
     )
 
+    keys_components = list(components.PAGES.keys())
+    select_box_components_options = [text.capitalize() for text in keys_components]
+
     with st.sidebar:
-        st.button("Dashboard", key="dashboard", on_click=None)
-        st.button("Solution One", key="sol_one", on_click=None)
-        st.button("Solution Two", key="sol_two", on_click=None)
-        st.button("Solution Tree", key="sol_tree", on_click=None)
-        st.button("Track Delivery", key="Track", on_click=None)
+        st.selectbox("", select_box_components_options, key=persist("page"))

@@ -30,6 +30,6 @@ def init_cache():
     if "page" not in st.session_state:
         st.session_state.update(
             {
-                "page": "codetracker",
+                "page": "dashboard",
             }
         )
