@@ -36,6 +36,19 @@ def codetracker():
                             z-index: 1000020;
                             display: none;
                       }
+                      .css-rytr0c {
+                            vertical-align: middle;
+                            overflow: hidden;
+                            color: rgb(151, 166, 195);
+                            fill: currentcolor;
+                            display: inline-flex;
+                            -moz-box-align: center;
+                            align-items: center;
+                            font-size: 1.25rem;
+                            width: 1.25rem;
+                            height: 1.25rem;
+                            display: none;
+                        }
                       .css-fg4pbf {
                           position: absolute;
                           background: #ffe8e8;

@@ -25,6 +25,19 @@ def dashboard():
                           inset: 0px;
                           overflow: hidden;
                       }
+                      .css-rytr0c {
+                            vertical-align: middle;
+                            overflow: hidden;
+                            color: rgb(151, 166, 195);
+                            fill: currentcolor;
+                            display: inline-flex;
+                            -moz-box-align: center;
+                            align-items: center;
+                            font-size: 1.25rem;
+                            width: 1.25rem;
+                            height: 1.25rem;
+                            display: none;
+                        }
                       .css-1ht1j8u {
                           overflow-wrap: normal;
                           text-overflow: ellipsis;

@@ -1,6 +1,6 @@
 import streamlit as st
 
-from app.view.deliverytracker import deliverytracker
+from app.components.deliverytracker import deliverytracker
 
 deliverytracker()
 st.sidebar.markdown("# Deliverytracker")
