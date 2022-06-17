@@ -146,7 +146,6 @@ def dashboard():
         unsafe_allow_html=True,
     )
 
-
     col1, col2, col3, col4, col5, col6 = st.columns(6)
     col2.metric("Funcionários", "0", "0%")
     col3.metric("Clientes", "0", "0%")

@@ -2,31 +2,40 @@ import streamlit as st
 import re
 import pandas as pd
 
-from app.service.delivery_api import get_all_deliveries, find_deliveryman_by_id, find_buyer_by_id
+from app.service.delivery_api import (
+    get_all_deliveries,
+    find_deliveryman_by_id,
+    find_buyer_by_id,
+)
 from app.helper.selectbox_builder import delivery_selectbox_buider
 
-def deliverytracker():
 
-    def handleShippedDelivery(latitudes : list, longitudes : list, delivery_status : str, documents : list):
-        
-        if delivery_status != 'DONE':
+def deliverytracker():
+    def handleShippedDelivery(
+        latitudes: list, longitudes: list, delivery_status: str, documents: list
+    ):
+
+        if delivery_status != "DONE":
             return
 
         if latitudes[0] != latitudes[1] and longitudes[0] != longitudes[1]:
-            st.error('Entrega em Locais Diferentes')
+            st.error("Entrega em Locais Diferentes")
             return
 
         if latitudes[0] == latitudes[1] and longitudes[0] == longitudes[1]:
 
             if documents[0] != documents[1]:
-                st.warning(f"Produto Entregue para Pessoa com Documento Diferente, Verificar com {'{}.{}.{}-{}'.format(documents[1][:3], documents[1][3:6], documents[1][6:9], documents[1][9:])}")
+                st.warning(
+                    f"Produto Entregue para Pessoa com Documento Diferente, Verificar com {'{}.{}.{}-{}'.format(documents[1][:3], documents[1][3:6], documents[1][6:9], documents[1][9:])}"
+                )
             else:
-                st.success('Entrega Realizada Com Sucesso!')
+                st.success("Entrega Realizada Com Sucesso!")
             return
 
     st.header("Delivery Tracker")
 
-    st.markdown("""
+    st.markdown(
+        """
                     <style>
                         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@300&family=Roboto+Mono:wght@300&display=swap');
                         * {
@@ -171,57 +180,75 @@ def deliverytracker():
                             align-items: center;
                         }
                     </style>
-                """, unsafe_allow_html=True)
+                """,
+        unsafe_allow_html=True,
+    )
 
     deliveries = get_all_deliveries()
 
     select_box_deliveries_options = delivery_selectbox_buider(deliveries)
-    delivery_selected = st.selectbox('Selecione a Entrega', tuple(select_box_deliveries_options))
+    delivery_selected = st.selectbox(
+        "Selecione a Entrega", tuple(select_box_deliveries_options)
+    )
 
-    delivery_id = re.findall(r'\d+', delivery_selected)[0]
-    deliveryData = next((delivery for delivery in deliveries if delivery.get('id') == int(delivery_id)), None)
+    delivery_id = re.findall(r"\d+", delivery_selected)[0]
+    deliveryData = next(
+        (delivery for delivery in deliveries if delivery.get("id") == int(delivery_id)),
+        None,
+    )
 
-    deliveryman = find_deliveryman_by_id(deliveryData.get('idDeliveryman'))
-    buyer = find_buyer_by_id(deliveryData.get('idBuyer'))
+    deliveryman = find_deliveryman_by_id(deliveryData.get("idDeliveryman"))
+    buyer = find_buyer_by_id(deliveryData.get("idBuyer"))
 
-    lats = [deliveryData.get('deliverymanLat'), buyer.get('addressLat')]
-    longs = [deliveryData.get('deliverymanLong'), buyer.get('addressLong')]
+    lats = [deliveryData.get("deliverymanLat"), buyer.get("addressLat")]
+    longs = [deliveryData.get("deliverymanLong"), buyer.get("addressLong")]
 
     with st.container():
-        d = {"lat": lats, 
-             "lon": longs}
+        d = {"lat": lats, "lon": longs}
         df = pd.DataFrame(data=d)
         st.map(df)
-    
+
     col1, col2 = st.columns((3, 3))
 
     with col1:
         with st.container():
-            st.subheader('Entregador')
+            st.subheader("Entregador")
             st.text(f"Nome : {deliveryman.get('name')}")
-            st.text(f"Tipo de Veículo: {deliveryman.get('vehicle').split('-')[0].strip()}")
-            st.text(f"Modelo do Veículo: {deliveryman.get('vehicle').split('-')[1].strip()}")
+            st.text(
+                f"Tipo de Veículo: {deliveryman.get('vehicle').split('-')[0].strip()}"
+            )
+            st.text(
+                f"Modelo do Veículo: {deliveryman.get('vehicle').split('-')[1].strip()}"
+            )
 
     with col2:
         with st.container():
-            st.subheader('Comprador')
+            st.subheader("Comprador")
             st.text(f"Nome : {buyer.get('name')}")
-            st.text(f"CEP : {'{}-{}'.format(buyer.get('cep')[:5], buyer.get('cep')[5:8])}")
-            st.text(f"CPF : {'{}.{}.{}-{}'.format(buyer.get('cpf')[:3], buyer.get('cpf')[3:6], buyer.get('cpf')[6:9], buyer.get('cpf')[9:])}")
+            st.text(
+                f"CEP : {'{}-{}'.format(buyer.get('cep')[:5], buyer.get('cep')[5:8])}"
+            )
+            st.text(
+                f"CPF : {'{}.{}.{}-{}'.format(buyer.get('cpf')[:3], buyer.get('cpf')[3:6], buyer.get('cpf')[6:9], buyer.get('cpf')[9:])}"
+            )
 
     c1, c2 = st.columns((3, 3))
     with c1:
-        st.subheader('Detalhes da Compra')
+        st.subheader("Detalhes da Compra")
         st.text(f"Identificação do Produto : {deliveryData.get('product').get('id')}")
         st.text(f"Nome do Produto : {deliveryData.get('product').get('name')}")
         st.text(f"Quantidade : {deliveryData.get('product').get('quant')}")
         st.text(f"Valor do Produto : {deliveryData.get('product').get('value')}")
-    
+
     with c2:
-        st.subheader('Detalhes da Entrega')
-        st.text(f"CPF do Destinatário : {'{}.{}.{}-{}'.format(deliveryData.get('receiverCpf')[:3], deliveryData.get('receiverCpf')[3:6], deliveryData.get('receiverCpf')[6:9], deliveryData.get('receiverCpf')[9:])}")
+        st.subheader("Detalhes da Entrega")
+        st.text(
+            f"CPF do Destinatário : {'{}.{}.{}-{}'.format(deliveryData.get('receiverCpf')[:3], deliveryData.get('receiverCpf')[3:6], deliveryData.get('receiverCpf')[6:9], deliveryData.get('receiverCpf')[9:])}"
+        )
 
-    handleShippedDelivery(lats, longs, deliveryData.get('statusDelivery'), [buyer.get('cpf'), deliveryData.get('receiverCpf')])
-
-            
-            
+    handleShippedDelivery(
+        lats,
+        longs,
+        deliveryData.get("statusDelivery"),
+        [buyer.get("cpf"), deliveryData.get("receiverCpf")],
+    )

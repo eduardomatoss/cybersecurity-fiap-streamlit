@@ -8,17 +8,18 @@ from app.helper.code_generator import code_generator
 
 buyer_code = code_generator()
 
-def codetracker():
 
+def codetracker():
     def handleVerifyCodeCheck(correct_code, input_code):
         if correct_code == input_code:
-            st.success('Sua Entrega foi Realizada com Sucesso')
+            st.success("Sua Entrega foi Realizada com Sucesso")
         else:
-            st.warning('Entrega Cancelada')
+            st.warning("Entrega Cancelada")
 
     st.header("Code Tracker")
 
-    st.markdown("""
+    st.markdown(
+        """
                     <style>
                       @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@300&family=Roboto+Mono:wght@300&display=swap');
                       * {
@@ -177,7 +178,9 @@ def codetracker():
                           color: #79AFFF;
                       }
                     </style>
-                """, unsafe_allow_html=True)
+                """,
+        unsafe_allow_html=True,
+    )
 
     buyers = get_all_buyers()
     delivery_mens = get_all_deliveryman()
@@ -188,21 +191,23 @@ def codetracker():
     c1, c2 = st.columns((3, 3))
 
     with c1:
-        st.selectbox('Selecione o Entregador', tuple(select_box_delivery_mens_options))
-    
+        st.selectbox("Selecione o Entregador", tuple(select_box_delivery_mens_options))
+
     with c2:
-        buyer = st.selectbox('Selecione o Comprador', tuple(select_box_buyers_options))
-    
+        buyer = st.selectbox("Selecione o Comprador", tuple(select_box_buyers_options))
+
     st.subheader("Dados da Rota")
 
-    buyer_id = re.findall(r'\d+', buyer)[0]
-    buyerData = next((buyer for buyer in buyers if buyer.get('id') == int(buyer_id)), None)
+    buyer_id = re.findall(r"\d+", buyer)[0]
+    buyerData = next(
+        (buyer for buyer in buyers if buyer.get("id") == int(buyer_id)), None
+    )
 
-    zip_code = buyerData.get('cep')
+    zip_code = buyerData.get("cep")
     address_data = get_address_by_zipcode(zip_code)
 
     col1, col2, col3 = st.columns(3)
-    col1.text(f'Cep : {zip_code}')
+    col1.text(f"Cep : {zip_code}")
     col2.text(f"Estado : {address_data.get('uf')}")
     col3.text(f"Cidade : {address_data.get('localidade')}")
 
@@ -214,13 +219,19 @@ def codetracker():
     column1, column2 = st.columns((3, 3))
 
     with column1:
-        st.text_input('Favor informar Código de Segurança ao Entregador:', disabled=True, placeholder=buyer_code)
+        st.text_input(
+            "Favor informar Código de Segurança ao Entregador:",
+            disabled=True,
+            placeholder=buyer_code,
+        )
 
     with column2:
-        received_code = st.text_input('Insira o Código de Entrega informado pelo Comprador:')
+        received_code = st.text_input(
+            "Insira o Código de Entrega informado pelo Comprador:"
+        )
 
     _, cl2, _ = st.columns((1, 4, 1))
 
     with cl2:
-        if st.button('Verificar Código de Segurança'):
+        if st.button("Verificar Código de Segurança"):
             handleVerifyCodeCheck(buyer_code, received_code)
