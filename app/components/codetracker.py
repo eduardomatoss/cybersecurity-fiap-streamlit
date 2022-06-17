@@ -188,7 +188,7 @@ def codetracker():
     c1, c2 = st.columns((3, 3))
 
     with c1:
-        delivery_man = st.selectbox('Selecione o Entregador', tuple(select_box_delivery_mens_options))
+        st.selectbox('Selecione o Entregador', tuple(select_box_delivery_mens_options))
     
     with c2:
         buyer = st.selectbox('Selecione o Comprador', tuple(select_box_buyers_options))
@@ -217,7 +217,7 @@ def codetracker():
         st.text_input('Favor informar Código de Segurança ao Entregador:', disabled=True, placeholder=buyer_code)
 
     with column2:
-        received_code = st.text_input(f'Insira o Código de Entrega informado pelo Comprador:')
+        received_code = st.text_input('Insira o Código de Entrega informado pelo Comprador:')
 
     _, cl2, _ = st.columns((1, 4, 1))
 
