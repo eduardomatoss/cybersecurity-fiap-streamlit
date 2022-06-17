@@ -147,8 +147,8 @@ def dashboard():
     )
 
     col1, col2, col3, col4, col5, col6 = st.columns(6)
-    col2.metric("Funcionários", "0", "0%")
-    col3.metric("Clientes", "0", "0%")
+    col2.metric("Funcionários", "3", "33%")
+    col3.metric("Clientes", "7", "15%")
     col4.metric("Faturamento", "R$ 250k", "R$ 10.000")
     col1.metric("Quantidade Entregas", "230", "45%")
     col5.metric("Entregas Realizadas", "200", "87%")
