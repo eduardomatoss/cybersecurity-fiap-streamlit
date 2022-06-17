@@ -118,7 +118,7 @@ def deliverytracker():
                             flex: 1 1 calc(66.6667% - 1rem);
                             background-color: rgb(255, 255, 255);
                             padding: 20px;
-                            border-radius: 15px;                            
+                            border-radius: 15px;
                         }
                         .css-1siy2j7 {
                           background-color: #FFF;
@@ -133,8 +133,8 @@ def deliverytracker():
                           z-index: 1000021;
                           margin-left: 0px;
                           border-radius: 0px 15px;
-                      }
-                      .css-1qrvfrg {
+                        }
+                        .css-1qrvfrg {
                           display: inline-flex;
                           -moz-box-align: center;
                           align-items: center;
@@ -149,11 +149,11 @@ def deliverytracker():
                           border: 1px solid #FFF;
                           width: 100%;
                           background-color: #FFF;
-                      }
+                        }
                       .css-1qrvfrg:hover {
                           border-color: #79AFFF;
                           color: #79AFFF;
-                      }
+                        }
                       .css-1qrvfrg:active {
                           color: #FFF;
                           border-color: #79AFFF;
