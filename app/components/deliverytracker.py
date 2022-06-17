@@ -158,6 +158,18 @@ def deliverytracker():
                           border-color: #79AFFF;
                           color: #79AFFF;
                       }
+                        .css-qrbaxs {
+                            font-size: 20px;
+                            color: rgb(49, 51, 63);
+                            margin-bottom: 7px;
+                            height: auto;
+                            min-height: 1.5rem;
+                            vertical-align: middle;
+                            display: flex;
+                            flex-direction: row;
+                            -moz-box-align: center;
+                            align-items: center;
+                        }
                     </style>
                 """, unsafe_allow_html=True)
 

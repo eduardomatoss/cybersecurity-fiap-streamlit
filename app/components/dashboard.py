@@ -17,10 +17,10 @@ def dashboard():
                       #MainMenu {visibility: hidden;}
                       .css-k0sv6k {visibility: hidden;}
                       .streamlit-expanderHeader {display:none;}
-                      .streamlit-expander {border-color: #f2f7ff;}
+                      .streamlit-expander {border-color: #ffe8e8;}
                       .css-fg4pbf {
                           position: absolute;
-                          background: #f2f7ff;
+                          background: #ffe8e8;
                           color: rgb(49, 51, 63);
                           inset: 0px;
                           overflow: hidden;
